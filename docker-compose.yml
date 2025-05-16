@@ -16,5 +16,7 @@ services:
       - QUARKUS_PROFILE=prod
   apicurio-ui:
     image: apicurio/apicurio-registry-ui:3.0.7
+    environment:
+      - REGISTRY_API_URL=http://apicurio-registry:8080/apis/registry/v3/
     ports:
       - "8888:8080"
