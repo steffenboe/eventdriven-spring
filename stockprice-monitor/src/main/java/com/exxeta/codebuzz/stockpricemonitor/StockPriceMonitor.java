@@ -37,7 +37,9 @@ class StockPriceMonitor {
 
         // TODO #5: Send the stock price to the RabbitMQ queue
         // by default, uses java serialization
-        amqpTemplate.convertAndSend("stockPriceUpdate", stockPrice);
+        //amqpTemplate.convertAndSend("stockPriceUpdate", stockPrice);
+        // TODO 7.1: Use JSON serialization
+        amqpTemplate.convertAndSend("stockPriceUpdate", new StockPriceUpdateEvent("1.0", "A0DJ5J", Double.parseDouble(stockPrice), "Some Stock"));
         LOG.info("Stock price sent to queue: " + stockPrice);
     }
 

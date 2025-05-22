@@ -14,9 +14,8 @@ public class StockPriceMockRestController {
 
     // TODO #1: Provide a Mock REST endpoint to simulate stock price retrieval
     @GetMapping("/api/stock/{symbol}")
-    public ResponseEntity<StockPriceUpdateEvent> getStockPrice(@PathVariable String symbol) {
-        StockPriceUpdateEvent stockPrice = new StockPriceUpdateEvent(symbol, Math.random() * 1000);
-        return ResponseEntity.ok(stockPrice);
+    public ResponseEntity<Double> getStockPrice(@PathVariable String symbol) {
+        return ResponseEntity.ok(Math.random() * 1000);
     }
     
 }
