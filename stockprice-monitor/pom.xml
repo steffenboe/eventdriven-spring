@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>24</java.version>
+		<cloudevents.version>4.0.1</cloudevents.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -27,6 +28,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.cloudevents</groupId>
+			<artifactId>cloudevents-spring</artifactId>
+			<version>${cloudevents.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

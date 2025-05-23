@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Event representing a stock price update.
  * This class is used to send stock price updates via RabbitMQ.
  */
-record StockPriceUpdateEvent(String version, String symbol, double priceInCents, String name) implements Serializable {
+record StockPriceUpdateEventV2(Version version, String symbol, double priceInCents, String name) implements Serializable {
 
 }
 
