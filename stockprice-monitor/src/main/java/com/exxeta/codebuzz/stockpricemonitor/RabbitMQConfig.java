@@ -15,7 +15,6 @@ import org.springframework.retry.support.RetryTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-// TODO #6 Define a RabbitMQ configuration
 @Configuration
 class RabbitMQConfig {
 
@@ -30,29 +29,24 @@ class RabbitMQConfig {
     // }
 
     // @Bean
-    // public SimpleMessageConverter simpleMessageConverter() {
-    //     return new SimpleMessageConverter();
-    // }
-
-    // // TODO #7 define message converting
-    // @Bean
-    // public Jackson2JsonMessageConverter messageConverter() {
+    // Jackson2JsonMessageConverter messageConverter() {
     //     ObjectMapper mapper = new ObjectMapper();
     //     return new Jackson2JsonMessageConverter(mapper);
     // }
 
     // @Bean
-    // public RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
-    //     connectionFactory.setPublisherConfirmType(ConfirmType.CORRELATED);
+    // RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
     //     RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
     //     rabbitTemplate.setMessageConverter(messageConverter());
-    //     RetryTemplate retryTemplate = new RetryTemplate();
-    //     ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
-    //     backOffPolicy.setInitialInterval(500);
-    //     backOffPolicy.setMultiplier(10.0);
-    //     backOffPolicy.setMaxInterval(10000);
-    //     retryTemplate.setBackOffPolicy(backOffPolicy);
-    //     rabbitTemplate.setRetryTemplate(retryTemplate);
+    //     return rabbitTemplate;
+    // }
+    
+    
+    // @Bean
+    // RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
+    //     RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+    //     rabbitTemplate.setMessageConverter(messageConverter());
+    //     connectionFactory.setPublisherConfirmType(ConfirmType.CORRELATED);
     //     rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
     //         if (ack) {
     //             System.out.println("Message published successfully: " + (correlationData != null ? correlationData.getId() : "null"));
@@ -60,6 +54,13 @@ class RabbitMQConfig {
     //             System.err.println("Message publish failed: " + (correlationData != null ? correlationData.getId() : "null") + ", cause: " + cause);
     //         }
     //     });
+    //     RetryTemplate retryTemplate = new RetryTemplate();
+    //     ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
+    //     backOffPolicy.setInitialInterval(500);
+    //     backOffPolicy.setMultiplier(10.0);
+    //     backOffPolicy.setMaxInterval(10000);
+    //     retryTemplate.setBackOffPolicy(backOffPolicy);
+    //     rabbitTemplate.setRetryTemplate(retryTemplate);
     //     return rabbitTemplate;
     // }
 }

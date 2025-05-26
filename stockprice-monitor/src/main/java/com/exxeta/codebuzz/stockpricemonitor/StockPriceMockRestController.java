@@ -5,16 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * Mock REST controller for stock prices.
- * This is a placeholder for the actual implementation.
- */
 @RestController
-public class StockPriceMockRestController {
+class StockPriceMockRestController {
 
-    // TODO #1: Provide a Mock REST endpoint to simulate stock price retrieval
     // @GetMapping("/api/stock/{symbol}")
-    // public ResponseEntity<Double> getStockPrice(@PathVariable String symbol) {
+    // ResponseEntity<Double> getStockPrice(@PathVariable String symbol) {
     //     return ResponseEntity.ok(Math.random() * 1000);
     // }
     

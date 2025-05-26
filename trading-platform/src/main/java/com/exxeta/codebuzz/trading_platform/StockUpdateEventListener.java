@@ -8,15 +8,19 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 
-// TODO #2: Implement a RabbitMQ listener to receive stock price updates
 @Component
-public class StockUpdateEventListener {
+class StockUpdateEventListener {
 
     // private static final Logger LOG = LoggerFactory.getLogger(StockUpdateEventListener.class);
 
-    // @RabbitListener(queues = "stockPriceUpdateV2")
+    // @RabbitListener(queues = "tradingPlattformStockPriceUpdate")
     // public void handleStockPriceUpdate(StockPriceUpdateEvent message) {
     //     // Process the stock price update message
+    //     LOG.info("Received stock price update: {}", message);
+    // }
+    
+    // @RabbitListener(queues = "tradingPlattformStockPriceUpdateV2")
+    // public void handleStockPriceUpdate(StockPriceUpdateEventV2 message) {
     //     LOG.info("Received stock price update: {}", message);
     // }
 
