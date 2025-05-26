@@ -19,47 +19,47 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 class RabbitMQConfig {
 
-    @Bean
-    FanoutExchange fanout() {
-        return new FanoutExchange("stockPriceUpdate");
-    }
+    // @Bean
+    // FanoutExchange fanout() {
+    //     return new FanoutExchange("stockPriceUpdate");
+    // }
 
-    @Bean
-    FanoutExchange fanoutV2() {
-        return new FanoutExchange("stockPriceUpdateV2");
-    }
+    // @Bean
+    // FanoutExchange fanoutV2() {
+    //     return new FanoutExchange("stockPriceUpdateV2");
+    // }
 
-    @Bean
-    public SimpleMessageConverter simpleMessageConverter() {
-        return new SimpleMessageConverter();
-    }
+    // @Bean
+    // public SimpleMessageConverter simpleMessageConverter() {
+    //     return new SimpleMessageConverter();
+    // }
 
-    // TODO #7 define message converting
-    @Bean
-    public Jackson2JsonMessageConverter messageConverter() {
-        ObjectMapper mapper = new ObjectMapper();
-        return new Jackson2JsonMessageConverter(mapper);
-    }
+    // // TODO #7 define message converting
+    // @Bean
+    // public Jackson2JsonMessageConverter messageConverter() {
+    //     ObjectMapper mapper = new ObjectMapper();
+    //     return new Jackson2JsonMessageConverter(mapper);
+    // }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
-        connectionFactory.setPublisherConfirmType(ConfirmType.CORRELATED);
-        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(messageConverter());
-        RetryTemplate retryTemplate = new RetryTemplate();
-        ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
-        backOffPolicy.setInitialInterval(500);
-        backOffPolicy.setMultiplier(10.0);
-        backOffPolicy.setMaxInterval(10000);
-        retryTemplate.setBackOffPolicy(backOffPolicy);
-        rabbitTemplate.setRetryTemplate(retryTemplate);
-        rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
-            if (ack) {
-                System.out.println("Message published successfully: " + (correlationData != null ? correlationData.getId() : "null"));
-            } else {
-                System.err.println("Message publish failed: " + (correlationData != null ? correlationData.getId() : "null") + ", cause: " + cause);
-            }
-        });
-        return rabbitTemplate;
-    }
+    // @Bean
+    // public RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
+    //     connectionFactory.setPublisherConfirmType(ConfirmType.CORRELATED);
+    //     RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+    //     rabbitTemplate.setMessageConverter(messageConverter());
+    //     RetryTemplate retryTemplate = new RetryTemplate();
+    //     ExponentialBackOffPolicy backOffPolicy = new ExponentialBackOffPolicy();
+    //     backOffPolicy.setInitialInterval(500);
+    //     backOffPolicy.setMultiplier(10.0);
+    //     backOffPolicy.setMaxInterval(10000);
+    //     retryTemplate.setBackOffPolicy(backOffPolicy);
+    //     rabbitTemplate.setRetryTemplate(retryTemplate);
+    //     rabbitTemplate.setConfirmCallback((correlationData, ack, cause) -> {
+    //         if (ack) {
+    //             System.out.println("Message published successfully: " + (correlationData != null ? correlationData.getId() : "null"));
+    //         } else {
+    //             System.err.println("Message publish failed: " + (correlationData != null ? correlationData.getId() : "null") + ", cause: " + cause);
+    //         }
+    //     });
+    //     return rabbitTemplate;
+    // }
 }

@@ -17,25 +17,25 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfig {
 
-    @Bean
-    public Queue stockPriceQueue() {
-        return new Queue("stockPriceUpdateV2", false);
-    }
+    // @Bean
+    // public Queue stockPriceQueue() {
+    //     return new Queue("stockPriceUpdateV2", false);
+    // }
     
-    @Bean
-    public Queue stockPriceQueueV2() {
-        return new Queue("stockPriceUpdateV2", false);
-    }
+    // @Bean
+    // public Queue stockPriceQueueV2() {
+    //     return new Queue("stockPriceUpdateV2", false);
+    // }
 
-    @Bean
-    public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
-        final var rabbitTemplate = new RabbitTemplate(connectionFactory);
-        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
-        return rabbitTemplate;
-    }
+    // @Bean
+    // public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+    //     final var rabbitTemplate = new RabbitTemplate(connectionFactory);
+    //     rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+    //     return rabbitTemplate;
+    // }
 
-    @Bean
-    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
-        return new Jackson2JsonMessageConverter();
-    }
+    // @Bean
+    // public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+    //     return new Jackson2JsonMessageConverter();
+    // }
 }
