@@ -39,30 +39,30 @@ class StockPriceMonitor {
     @Scheduled(fixedRate = 5000)
     void monitorStockPrice() throws UnknownHostException, JsonProcessingException, NumberFormatException {
         String stockPrice = restTemplate.getForObject(url, String.class);
+        LOG.info("Stock price received: " + stockPrice);
 
+        // StockPriceUpdateEvent event = new StockPriceUpdateEvent("A0DJ5J",
+        // Double.parseDouble(stockPrice), "some name");
         // rabbitTemplate.convertAndSend("stockPriceUpdate", "",
-        //         new StockPriceUpdateEvent("A0DJ5J",
-        //                 Double.parseDouble(stockPrice)));
-        // rabbitTemplate.convertAndSend("stockPriceUpdateV2", "",
-        //         new StockPriceUpdateEventV2(new Symbol(UUID.randomUUID().toString(), "A0DJ5J"),
-        //                 Double.parseDouble(stockPrice), "Some stock"));
-        
-        // CorrelationData correlationData = new CorrelationData(new
-        // StockPriceUpdateEventV2(
-        // new Version("1", Date.from(Instant.parse("2007-12-03T10:15:30.00Z"))),
-        // "A0DJ5J",
-        // Double.parseDouble(stockPrice),
-        // "Some name").toString());
+        // event);
+        // LOG.info("Event published: {}", event);
 
-        // rabbitTemplate.convertAndSend(
-        // "ABC_NOT_EXISTING",
-        // "",
-        // new StockPriceUpdateEventV2(
-        // new Version("1", Date.from(Instant.parse("2007-12-03T10:15:30.00Z"))),
-        // "A0DJ5J",
-        // Double.parseDouble(stockPrice),
-        // "Some name"));
-        LOG.info("Stock price sent to queue: " + stockPrice);
+        // StockPriceUpdateEventV2 eventV2 = new StockPriceUpdateEventV2(new
+        // Symbol(UUID.randomUUID().toString(), "A0DJ5J"),
+        // Double.parseDouble(stockPrice), "Some stock");
+        // rabbitTemplate.convertAndSend("stockPriceUpdateV2", "",
+        // eventV2);
+        // LOG.info("Event V2 published: {}", eventV2);
+
+        StockPriceUpdateEventV2 eventV2 = new StockPriceUpdateEventV2(
+                new Symbol(UUID.randomUUID().toString(), "A0DJ5J"),
+                Double.parseDouble(stockPrice), "Some stock");
+        CorrelationData correlationData = new CorrelationData(eventV2.toString());
+
+        rabbitTemplate.convertAndSend(
+                "stockPriceUpdateV2",
+                "",
+                eventV2, correlationData);
     }
 
     private String getUrl() throws UnknownHostException {
