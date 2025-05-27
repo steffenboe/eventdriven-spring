@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 class StockPriceMockRestController {
 
-    // @GetMapping("/api/stock/{symbol}")
-    // ResponseEntity<Double> getStockPrice(@PathVariable String symbol) {
-    //     return ResponseEntity.ok(Math.random() * 1000);
-    // }
-    
+    @GetMapping("/api/stock/{symbol}")
+    ResponseEntity<Double> getStockPrice(@PathVariable String symbol) {
+        return ResponseEntity.ok(Math.random() * 1000);
+    }
+
 }

@@ -18,23 +18,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Configuration
 class RabbitMQConfig {
 
-    // @Bean
-    // FanoutExchange fanout() {
-    //     return new FanoutExchange("stockPriceUpdate");
-    // }
+    @Bean
+    FanoutExchange fanout() {
+        return new FanoutExchange("stockPriceUpdate");
+    }
 
-    // @Bean
-    // Jackson2JsonMessageConverter messageConverter() {
-    //     ObjectMapper mapper = new ObjectMapper();
-    //     return new Jackson2JsonMessageConverter(mapper);
-    // }
+    @Bean
+    Jackson2JsonMessageConverter messageConverter() {
+        ObjectMapper mapper = new ObjectMapper();
+        return new Jackson2JsonMessageConverter(mapper);
+    }
 
-    // @Bean
-    // RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
-    //     RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
-    //     rabbitTemplate.setMessageConverter(messageConverter());
-    //     return rabbitTemplate;
-    // }
+    @Bean
+    RabbitTemplate rabbitTemplate(final CachingConnectionFactory connectionFactory) {
+        RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(messageConverter());
+        return rabbitTemplate;
+    }
     
     // @Bean
     // FanoutExchange fanoutV2() {
@@ -53,7 +53,6 @@ class RabbitMQConfig {
     //             System.err.println("Message publish failed: " + (correlationData != null ? correlationData.getId() : "null") + ", cause: " + cause);
     //         }
     //     });
-
     //     return rabbitTemplate;
     // }
 }

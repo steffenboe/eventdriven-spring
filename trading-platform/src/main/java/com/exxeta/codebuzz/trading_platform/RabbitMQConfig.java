@@ -16,32 +16,42 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 class RabbitMQConfig {
 
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        return new FanoutExchange("stockPriceUpdate");
+    }
+
+    @Bean
+    public Queue stockPriceQueue() {
+        return new Queue("tradingPlattformStockPriceUpdate", false);
+    }
+
+    @Bean
+    public Binding stockPriceBinding(Queue stockPriceQueue, FanoutExchange fanoutExchange) {
+        return BindingBuilder.bind(stockPriceQueue).to(fanoutExchange);
+    }
+
     // @Bean
     // public FanoutExchange fanoutExchange() {
-    //     return new FanoutExchange("stockPriceUpdate");
+    //     return new FanoutExchange("stockPriceUpdateV2");
     // }
 
     // @Bean
     // public Queue stockPriceQueue() {
-    //     return new Queue("tradingPlattformStockPriceUpdate", false);
+    //     return new Queue("tradingPlattformStockPriceUpdateV2", false);
     // }
 
-    // @Bean
-    // public Binding stockPriceBindingV2(Queue stockPriceQueue, FanoutExchange fanoutExchange) {
-    //     return BindingBuilder.bind(stockPriceQueueV2).to(fanoutExchange);
-    // }
+    @Bean
+    public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
+        final var rabbitTemplate = new RabbitTemplate(connectionFactory);
+        rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
+        return rabbitTemplate;
+    }
 
-    // @Bean
-    // public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
-    //     final var rabbitTemplate = new RabbitTemplate(connectionFactory);
-    //     rabbitTemplate.setMessageConverter(producerJackson2MessageConverter());
-    //     return rabbitTemplate;
-    // }
-
-    // @Bean
-    // public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
-    //     return new Jackson2JsonMessageConverter();
-    // }
+    @Bean
+    public Jackson2JsonMessageConverter producerJackson2MessageConverter() {
+        return new Jackson2JsonMessageConverter();
+    }
 
     // @Bean
     // public Queue deadLetterQueue() {
@@ -62,7 +72,7 @@ class RabbitMQConfig {
     // }
 
     // @Bean
-    // public Queue stockPriceQueueV2() {
+    // public Queue stockPriceQueue() {
     //     return QueueBuilder
     //         .nonDurable("tradingPlattformStockPriceUpdateV2")
     //         .withArgument("x-dead-letter-exchange", "tradingPlatformStockPriceUpdate.dlx")
