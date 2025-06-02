@@ -25,6 +25,15 @@ class StockUpdateEventListener {
     // }
 
     // @RabbitListener(queues = "tradingPlattformStockPriceUpdateV2")
+    // public void handleStockPriceUpdateWithRetry(StockPriceUpdateEventV2 message)
+    // {
+    // LOG.info("Received stock price update v2: {}", message);
+    // // Simulate processing logic that might fail
+    // // For demonstration, we throw an exception to trigger the retry mechanism
+    // throw new RuntimeException("Simulated error in StockUpdateEventListener");
+    // }
+
+    // @RabbitListener(queues = "tradingPlattformStockPriceUpdateV2")
     // @Retryable(maxAttempts = 3, backoff =
     // @org.springframework.retry.annotation.Backoff(delay = 4000))
     // public void handleStockPriceUpdateWithRetry(StockPriceUpdateEventV2 message)
